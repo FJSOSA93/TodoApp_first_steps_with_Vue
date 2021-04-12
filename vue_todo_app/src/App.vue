@@ -1,17 +1,61 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<div>
+    <div id="header"></div>
+    
+    <div id="main-container">
+      <h2>Todos</h2>
+      <Todos v-bind:todoList = 'copyTodos' v-on:delete-todo = "deleteTodo" v-on:set-completed = "setCompleted"/>
+    </div>
+</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+//import HelloWorld from './components/HelloWorld.vue'
+//import Search from "./components/Search";
+//import TodoAdd from "./components/TodoAdd";
+import Todos from "./components/Todos";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    //Search,
+    Todos,
+    //TodoAdd,
+  },
+  data() {
+    return {
+      todos: [
+        {
+          id: 0,
+          title: "Terminar ticket",
+          completed: true,
+        },
+        {
+          id: 1,
+          title: "Terminar algo1",
+          completed: false,
+        },
+        {
+          id: 2,
+          title: "Terminar algo2",
+          completed: false,
+        }
+      ],
+      copyTodos: []
+    };
+  },
+  methods:{
+    deleteTodo(id){
+      console.log(id);
+    },
+    setCompleted(id){  // put the task like completed
+      this.copyTodos[id].completed = !this.copyTodos[id].completed;
+    }
+  },
+  created() {
+    this.copyTodos = [... this.todos];
+  },
+};
 </script>
 
 <style>
