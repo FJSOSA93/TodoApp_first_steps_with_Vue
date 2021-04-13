@@ -46,7 +46,9 @@ export default {
   },
   methods:{
     deleteTodo(id){
-      console.log(id);
+      this.todos = this.todos.filter(todo => todo.id != id);
+      this.copyTodos = [... this.todos];
+      console.log("event delete ", id)
     },
     setCompleted(id){  // put the task like completed
       this.copyTodos[id].completed = !this.copyTodos[id].completed;
