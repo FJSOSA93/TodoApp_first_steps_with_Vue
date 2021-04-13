@@ -4,6 +4,7 @@
     
     <div id="main-container">
       <h2>Todos</h2>
+      <TodoAdd v-on:add-todo = "addTodo"/>
       <Todos v-bind:todoList = 'copyTodos' v-on:delete-todo = "deleteTodo" v-on:set-completed = "setCompleted"/>
     </div>
 </div>
@@ -12,7 +13,7 @@
 <script>
 //import HelloWorld from './components/HelloWorld.vue'
 //import Search from "./components/Search";
-//import TodoAdd from "./components/TodoAdd";
+import TodoAdd from "./components/TodoAdd";
 import Todos from "./components/Todos";
 
 export default {
@@ -20,7 +21,7 @@ export default {
   components: {
     //Search,
     Todos,
-    //TodoAdd,
+    TodoAdd,
   },
   data() {
     return {
@@ -52,6 +53,10 @@ export default {
     },
     setCompleted(id){  // put the task like completed
       this.copyTodos[id].completed = !this.copyTodos[id].completed;
+    },
+    addTodo (todo) {
+      this.todos.push(todo);
+      this.copyTodos = [... this.todos]; //replace in copy todos.
     }
   },
   created() {
